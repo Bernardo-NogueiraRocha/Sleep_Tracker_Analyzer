@@ -2,7 +2,6 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import auth
 
 def plot_idades(df, num):
     fig = plt.figure(num, figsize=(10,6))
@@ -12,10 +11,6 @@ def plot_idades(df, num):
     plt.ylabel('Frequência')
     plt.tight_layout()
     return fig
-
-if not auth.usuario_logado():
-    st.warning('Por favor, faça login para acessar esta página.')
-    st.stop()
 
 st.title('Gráfico de qualidade de sono')
 

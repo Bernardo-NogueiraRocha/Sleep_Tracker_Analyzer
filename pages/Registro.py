@@ -1,7 +1,6 @@
 # pages/registro.py
 import streamlit as st
 import pandas as pd
-import auth 
 
 def insert_register(data: dict, df: pd.DataFrame) -> pd.DataFrame:
     """Adiciona um novo registro a um Pandas DataFrame."""
@@ -29,10 +28,6 @@ def formulario_sono():
             return dados
         else:
             return None
-
-if not auth.usuario_logado():
-    st.warning('Por favor, faça login para acessar esta página.')
-    st.stop()
 
 st.title('Registro de dados de sono')
 
