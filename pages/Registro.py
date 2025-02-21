@@ -25,6 +25,7 @@ def formulario_sono():
                 'Hora de dormir': hora_dormir,
                 'Hora de acordar': hora_acordar
             }
+            st.write('Registro adicionado!')
             return dados
         else:
             return None
@@ -39,5 +40,3 @@ dados = formulario_sono()
 if dados:
     st.session_state.df = insert_register(dados, st.session_state.df)
     st.session_state.df.to_csv('output.csv', index=False)
-
-st.table(st.session_state.df)
