@@ -1,7 +1,6 @@
 # pages/registro.py
 import streamlit as st
 import pandas as pd
-import auth 
 
 def insert_register(data: dict, df: pd.DataFrame) -> pd.DataFrame:
     """Adiciona um novo registro a um Pandas DataFrame."""
@@ -17,6 +16,7 @@ def formulario_sono():
         interrupcoes = st.checkbox('Teve interrupções no sono (ir ao banheiro, acordar no meio da noite)?')
         hora_dormir = st.time_input('Que horas foi dormir?')
         hora_acordar = st.time_input('Que horas acordou?')
+        horas_dormidas = st.time_input('Quantas horas de sono tiveste?')
         submitted = st.form_submit_button('Adicionar registro')
         if submitted:
             dados = {
@@ -24,15 +24,13 @@ def formulario_sono():
                 'Qualidade de sono': valor,
                 'Interrupções': interrupcoes,
                 'Hora de dormir': hora_dormir,
-                'Hora de acordar': hora_acordar
+                'Hora de acordar': hora_acordar,
+                'Horas dormidas' : horas_dormidas
             }
+            st.write('Registro adicionado!')
             return dados
         else:
             return None
-
-if not auth.usuario_logado():
-    st.warning('Por favor, faça login para acessar esta página.')
-    st.stop()
 
 st.title('Registro de dados de sono')
 
@@ -44,5 +42,3 @@ dados = formulario_sono()
 if dados:
     st.session_state.df = insert_register(dados, st.session_state.df)
     st.session_state.df.to_csv('output.csv', index=False)
-
-st.table(st.session_state.df)
